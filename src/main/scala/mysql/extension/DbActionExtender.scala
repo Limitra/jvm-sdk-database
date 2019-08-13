@@ -21,6 +21,17 @@ abstract class DbActionExtender[R](db: DatabaseDef, action: DBIOAction[R, NoStre
     }
   }
 
+  def Save(default: R): R = {
+    try {
+      Await.result(db.run(action), Duration.Inf)
+    } catch {
+      case e: Exception => {
+        println(e.getMessage)
+        return default
+      }
+    }
+  }
+
   // Query executer extension method for async request.
   // This extension doesnt returns query value with callback.
   def SaveAsync(): Future[R] = {
@@ -28,8 +39,19 @@ abstract class DbActionExtender[R](db: DatabaseDef, action: DBIOAction[R, NoStre
       return db.run(action)
     } catch {
       case e: Exception => {
+          println(e.getMessage)
+          throw new RuntimeException(e.getMessage)
+      }
+    }
+  }
+
+  def SaveAsync(default: R): Future[R] = {
+    try {
+      return db.run(action)
+    } catch {
+      case e: Exception => {
         println(e.getMessage)
-        throw new RuntimeException(e.getMessage)
+        return Future.successful(default)
       }
     }
   }
