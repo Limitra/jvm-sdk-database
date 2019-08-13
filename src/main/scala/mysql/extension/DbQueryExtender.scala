@@ -13,7 +13,6 @@ import scala.reflect.ClassTag
 protected abstract class DbQueryExtender[+T, E](db: DatabaseDef, query: Query[T, E, Seq]) {
   // Implicit extension methods for DBIO
   implicit class ActionExtender[R](action: DBIOAction[R, NoStream, Nothing]) extends DbActionExtender[R](db, action)
-
   // Generates customized query for filter
   def Filter[Q <: Rep[_]](expr: T => Q)(implicit wt: CanBeQueryCondition[Q]): Query[T, E, Seq] = {
     return this.query.filter(expr)
@@ -135,5 +134,15 @@ protected abstract class DbQueryExtender[+T, E](db: DatabaseDef, query: Query[T,
   // Generates query of sum operation
   def Sum[F, G, E](map: T => Rep[F])(implicit tm: TypedType[F], shape: Shape[_ <: FlatShapeLevel, Rep[F], E, G]): Rep[F] = {
     return Library.Sum.column[F](this.query.map(map).toNode)
+  }
+
+  // Create result for queries
+  def Execute = {
+    this.query.result.Save
+  }
+
+  // Create result for async queries
+  def ExecuteAsync = {
+    this.query.result.SaveAsync
   }
 }
