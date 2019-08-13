@@ -10,5 +10,5 @@ import scala.language.experimental.macros
  */
 protected abstract class DbBoxQuery[E <: BaseBox, T <: BaseBoxTable[E]](query: TableQuery[T], cons: Tag => T) extends TableQuery[T](cons) {
   val TableName = this.baseTableRow.tableName
-  val Query = query
+  val Query = query.to[Seq]
 }
