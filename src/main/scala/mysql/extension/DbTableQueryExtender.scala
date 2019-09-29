@@ -20,12 +20,8 @@ protected abstract class DbTableQueryExtender[E <: BaseBox, T <: BaseBoxTable[E]
 
   // Generates customized query action for insert operation
   private def _insert(entity: E) = {
-    val insert = (this.query returning this.query.map(_.ID)) += entity
-
-    for {
-      autoInc <- this._autoIncRes
-      insert <- insert
-    } yield insert
+    this._autoIncRes.Save(0)
+    (this.query returning this.query.map(_.ID)) += entity
   }
 
   // Runs customized insert action sync
