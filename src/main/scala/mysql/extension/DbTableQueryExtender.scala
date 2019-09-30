@@ -15,7 +15,7 @@ protected abstract class DbTableQueryExtender[E <: BaseBox, T <: BaseBoxTable[E]
   // Generates customized query action for auto increment reset operation
   private def _autoIncRes(incStart: Long): DBIOAction[Int, NoStream, Nothing] = {
     val tableName = this.query.TableName
-    return sqlu"""ALTER TABLE #$tableName AUTO_INCREMENT = #$incStart;"""
+    return sqlu"""ALTER TABLE `#$tableName` AUTO_INCREMENT = #$incStart;"""
   }
 
   // Generates customized query action for insert operation
