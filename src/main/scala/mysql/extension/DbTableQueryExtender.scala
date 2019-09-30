@@ -13,45 +13,48 @@ protected abstract class DbTableQueryExtender[E <: BaseBox, T <: BaseBoxTable[E]
   implicit class ActionExtender[R: ClassTag](action: DBIOAction[R, NoStream, Nothing]) extends DbActionExtender[R](db, action)
 
   // Generates customized query action for auto increment reset operation
-  private def _autoIncRes: DBIOAction[Int, NoStream, Nothing] = {
+  private def _autoIncRes(incStart: Long): DBIOAction[Int, NoStream, Nothing] = {
     val tableName = this.query.TableName
-    return sqlu"""ALTER TABLE #$tableName AUTO_INCREMENT = 1;"""
+    return sqlu"""ALTER TABLE #$tableName AUTO_INCREMENT = #$incStart;"""
   }
 
   // Generates customized query action for insert operation
-  private def _insert(entity: E) = {
-    this._autoIncRes.Save(0)
-    (this.query returning this.query.map(_.ID)) += entity
+  private def _insert(entity: E, incStart: Long) = {
+    val insert = (this.query returning this.query.map(_.ID)) += entity
+    for {
+      autoInc <- this._autoIncRes(incStart)
+      insert <- insert
+    } yield insert
   }
 
   // Runs customized insert action sync
-  def Insert(entity: E): Long = {
-    this._insert(entity).Save
+  def Insert(entity: E, incStart: Long = 1): Long = {
+    this._insert(entity, incStart).Save
   }
 
   // Runs customized insert action async
-  def InsertAsync(entity: E) = {
-    this._insert(entity).SaveAsync
+  def InsertAsync(entity: E, incStart: Long = 1) = {
+    this._insert(entity, incStart).SaveAsync
   }
 
   // Generates customized query action for bulk insert operation
-  private def _bulkInsert(entities: Seq[E]) = {
-    var bulkInsert = (this.query returning this.query.map(_.ID)) ++= entities
+  private def _bulkInsert(entities: Seq[E], incStart: Long) = {
+    val bulkInsert = (this.query returning this.query.map(_.ID)) ++= entities
 
     for {
-      autoInc <- this._autoIncRes
+      autoInc <- this._autoIncRes(incStart)
       insert <- bulkInsert
     } yield insert
   }
 
   // Runs customized bulk insert action sync
-  def BulkInsert(entities: Seq[E]): Seq[Long] = {
-    this._bulkInsert(entities).Save
+  def BulkInsert(entities: Seq[E], incStart: Long = 1): Seq[Long] = {
+    this._bulkInsert(entities, incStart).Save
   }
 
   // Runs customized bulk insert action async
-  def BulkInsertAsync(entities: Seq[E]) = {
-    this._bulkInsert(entities).SaveAsync
+  def BulkInsertAsync(entities: Seq[E], incStart: Long = 1) = {
+    this._bulkInsert(entities, incStart).SaveAsync
   }
 
   // Generates customized query action for update operation
