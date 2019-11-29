@@ -74,7 +74,7 @@ Bazel
 maven_jar(
     name = "database_2.12",
     artifact = "com.limitra.sdk:database_2.12:0.0.1",
-    sha1 = "1fc38353bb455e5f96b589dff288b11e110e3200",
+    sha1 = "098164177330abbd7e3a7529c774dc40593f2b0f",
 )
 ````
 

@@ -1,16 +1,14 @@
 organization := "com.limitra.sdk"
 organizationName := "Limitra R&D"
-homepage := Some(url("https://github.com/limitra/sdk-database"))
-scmInfo := Some(ScmInfo(url("https://github.com/limitra/sdk-database"), "git@github.com:limitra/sdk-database.git"))
+homepage := Some(url("https://github.com/limitra/jvm-sdk-database"))
+scmInfo := Some(ScmInfo(url("https://github.com/limitra/jvm-sdk-database"), "git@github.com:limitra/jvm-sdk-database.git"))
 developers := List(Developer("mnevfel",
     "Mustafa Nevfel",
     "mnevfel@limitra.com",
     url("https://github.com/mnevfel")))
-licenses += ("Apache-2.0", url("https://github.com/Limitra/jvm-sdk-database/blob/master/LICENSE.txt"))
+licenses += ("BSD-2-Clause", url("https://github.com/Limitra/jvm-sdk-database/blob/master/LICENSE.txt"))
 
 publishMavenStyle := true
-
-pgpReadOnly := false
 
 publishTo := Some(
   if (isSnapshot.value)
@@ -18,5 +16,3 @@ publishTo := Some(
   else
     Opts.resolver.sonatypeStaging
 )
-
-
