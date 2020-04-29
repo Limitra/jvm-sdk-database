@@ -76,6 +76,16 @@ protected abstract class DbQueryExtender[+T, E](db: DatabaseDef, query: Query[T,
     this.query.result.headOption.Save
   }
 
+  // Generates mapped result of query for Option[C]
+  def FirstOptionRef[C](implicit tag: ClassTag[C]): Option[C] = {
+    val optional = this.query.result.headOption.Save
+    if (optional.isDefined) {
+      Reflect.FromTo[C](optional.get)
+    } else {
+      None
+    }
+  }
+
   // Generates result value of has operation for Boolean
   def AnyVal[Q <: Rep[_]](expr: T => Q)(implicit wt: CanBeQueryCondition[Q]): Boolean = {
     return (this.query.filter(expr).length > 0).result.Save
