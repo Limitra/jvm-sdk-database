@@ -8,9 +8,8 @@ import scala.concurrent.{Await, Future}
 import scala.language.experimental.macros
 
 abstract class DbActionExtender[R](db: DatabaseDef, action: DBIOAction[R, NoStream, Nothing]) {
-  // Action executer extension method for sync request.
   // This extension returns action value directly.
-  def Save(): R = {
+  def save(): R = {
     try {
       Await.result(db.run(action), Duration.Inf)
     } catch {
@@ -21,7 +20,7 @@ abstract class DbActionExtender[R](db: DatabaseDef, action: DBIOAction[R, NoStre
     }
   }
 
-  def Save(default: R): R = {
+  def save(default: R): R = {
     try {
       Await.result(db.run(action), Duration.Inf)
     } catch {
@@ -34,7 +33,7 @@ abstract class DbActionExtender[R](db: DatabaseDef, action: DBIOAction[R, NoStre
 
   // Query executer extension method for async request.
   // This extension doesnt returns query value with callback.
-  def SaveAsync(): Future[R] = {
+  def saveAsync(): Future[R] = {
     try {
       return db.run(action)
     } catch {
@@ -45,7 +44,7 @@ abstract class DbActionExtender[R](db: DatabaseDef, action: DBIOAction[R, NoStre
     }
   }
 
-  def SaveAsync(default: R): Future[R] = {
+  def saveAsync(default: R): Future[R] = {
     try {
       return db.run(action)
     } catch {
