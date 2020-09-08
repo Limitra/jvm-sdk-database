@@ -2,7 +2,7 @@ package com.limitra.sdk.database.mysql
 
 import com.limitra.sdk.core._
 import slick.jdbc.MySQLProfile
-import slick.lifted.BaseJoinQuery
+import slick.lifted.{BaseJoinQuery, Query, Rep}
 
 import scala.concurrent.duration._
 
@@ -53,7 +53,4 @@ abstract class DbSource(configName: String = "") extends MySQLProfile.API {
 
   // Implicit extension methods for DBIO
   implicit class ActionExtender[R](action: DBIOAction[R, NoStream, Nothing]) extends DbActionExtender[R](Db, action)
-
-  // Implicit extension methods for Join Query
-  implicit class JoinQuery[+E1, +E2, U1, U2, C[_], +B1, +B2](query: BaseJoinQuery[E1, E2, U1, U2, C, B1, B2]) extends DbJoinQuery[E1, E2, U1, U2, C, B1, B2](query)
 }
