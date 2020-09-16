@@ -1,11 +1,9 @@
 package com.limitra.sdk.database.mysql
 
 import com.limitra.sdk.core._
-import slick.ast.{Library, TypedType}
 import slick.jdbc.MySQLProfile.api._
 import slick.jdbc.MySQLProfile.backend.DatabaseDef
-import slick.lifted.FunctionSymbolExtensionMethods._
-import slick.lifted.{CanBeQueryCondition, FlatShapeLevel, OptionLift, Ordered, Query, Rep, Shape, SingleColumnQueryExtensionMethods}
+import slick.lifted.{CanBeQueryCondition, Query, Rep}
 
 import scala.language.experimental.macros
 import scala.reflect.ClassTag
