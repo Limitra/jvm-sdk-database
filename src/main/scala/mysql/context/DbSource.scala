@@ -2,7 +2,6 @@ package com.limitra.sdk.database.mysql
 
 import com.limitra.sdk.core._
 import slick.jdbc.MySQLProfile
-import slick.lifted.{BaseJoinQuery, Query, Rep}
 
 import scala.concurrent.duration._
 
