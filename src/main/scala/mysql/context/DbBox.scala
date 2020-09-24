@@ -4,7 +4,6 @@ import slick.ast.Node
 import slick.lifted._
 
 import scala.language.experimental.macros
-import scala.reflect.macros.blackbox.Context
 
 /**
   * Table initializer's object applier for usage of extended queries.
@@ -19,7 +18,6 @@ object DbBox {
   def apply[E <: BaseBox, T <: BaseBoxTable[E]](cons: Tag => T): DbBox[E, T] = new DbBox[E, T](cons)
 
   def _apply[E <: BaseBox, T <: BaseBoxTable[E]](c: Context)(implicit t: c.WeakTypeTag[T], e: c.WeakTypeTag[E]): c.Expr[DbBox[E, T]] = {
-    import c.universe._
     val cons = c.Expr[Tag => T](Function(
       List(ValDef(Modifiers(Flag.PARAM), TermName("tag"), Ident(typeOf[Tag].typeSymbol), EmptyTree)),
       Apply(

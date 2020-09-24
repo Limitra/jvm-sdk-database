@@ -1,13 +1,11 @@
 package com.limitra.sdk.database.mysql
 
-import com.limitra.sdk.core._
 import slick.jdbc.MySQLProfile.api._
 import slick.jdbc.MySQLProfile.backend.DatabaseDef
 import slick.lifted.{CanBeQueryCondition, Query, Rep}
 
 import scala.concurrent.Future
 import scala.language.experimental.macros
-import scala.reflect.ClassTag
 
 protected abstract class DbQueryExtender[+T, E](db: DatabaseDef, query: Query[T, E, Seq]) {
   // Implicit extension methods for DBIO
