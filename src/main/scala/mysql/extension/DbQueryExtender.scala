@@ -5,6 +5,7 @@ import slick.jdbc.MySQLProfile.api._
 import slick.jdbc.MySQLProfile.backend.DatabaseDef
 import slick.lifted.{CanBeQueryCondition, Query, Rep}
 
+import scala.concurrent.Future
 import scala.language.experimental.macros
 import scala.reflect.ClassTag
 
@@ -19,12 +20,22 @@ protected abstract class DbQueryExtender[+T, E](db: DatabaseDef, query: Query[T,
 
   // Generates result of query for E
   def first: E = {
-    this.firstOption.getOrElse(null.asInstanceOf[E])
+    this.query.result.head.save
   }
 
   // Generates result of query for Option[E]
   def firstOption: Option[E] = {
     this.query.result.headOption.save
+  }
+
+  // Generates result of query for E async
+  def firstAsync: Future[E] = {
+    this.query.result.head.saveAsync
+  }
+
+  // Generates result of query for Option[E] async
+  def firstOptionAsync: Future[Option[E]] = {
+    this.query.result.headOption.saveAsync
   }
 
   // Generates query of any operation for Rep[Boolean]
