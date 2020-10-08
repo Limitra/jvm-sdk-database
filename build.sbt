@@ -10,5 +10,5 @@ resolvers ++= Seq(
 libraryDependencies ++= Seq(
   "mysql" % "mysql-connector-java" % "8.0.17",
   "com.typesafe.slick" %% "slick" % "3.3.0",
-  "com.limitra.sdk" %% "core" % "0.0.2"
+  "com.limitra.sdk" %% "core" % "0.0.3"
 )
