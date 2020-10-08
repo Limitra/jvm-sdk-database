@@ -1,6 +1,6 @@
 name := "database"
 
-version := "0.0.2"
+version := "0.0.3"
 scalaVersion := "2.12.8"
 
 resolvers ++= Seq(
