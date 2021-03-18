@@ -12,3 +12,5 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick" % "3.3.3",
   "com.limitra.sdk" %% "core" % "0.0.6"
 )
+
+logLevel := Level.Error
