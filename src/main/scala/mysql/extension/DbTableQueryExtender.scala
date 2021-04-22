@@ -37,6 +37,18 @@ protected abstract class DbTableQueryExtender[E <: BaseBox, T <: BaseBoxTable[E]
     this._insert(entity, incStart).saveAsync
   }
 
+  // Runs customized & handled insert action sync
+  def insertHandle(entity: E, incStart: Long = 1): Long = {
+    def action = this._insert(entity, incStart).save
+    try { action } catch { case _ => action }
+  }
+
+  // Runs customized & handled insert action async
+  def insertHandleAsync(entity: E, incStart: Long = 1) = {
+    def action = this._insert(entity, incStart).saveAsync
+    action.recoverWith({ _ => action })
+  }
+
   // Generates customized query action for bulk insert operation
   private def _bulkInsert(entities: Seq[E], incStart: Long) = {
     val bulkInsert = (this.query returning this.query.map(_.ID)) ++= entities
