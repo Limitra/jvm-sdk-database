@@ -1,6 +1,6 @@
 name := "database"
 
-version := "0.0.11"
+version := "0.0.12"
 scalaVersion := "2.13.5"
 
 resolvers ++= Seq(
@@ -8,7 +8,7 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "mysql" % "mysql-connector-java" % "8.0.23",
+  "mysql" % "mysql-connector-java" % "8.0.24",
   "com.typesafe.slick" %% "slick" % "3.3.3",
   "com.limitra.sdk" %% "core" % "0.0.7"
 )

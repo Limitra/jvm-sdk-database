@@ -23,57 +23,57 @@ Apache Maven
 <dependency>
   <groupId>com.limitra.sdk</groupId>
   <artifactId>database_2.13</artifactId>
-  <version>0.0.11</version>
+  <version>0.0.12</version>
 </dependency>
 ````
 
 Gradle Groovy DSL
 ````Gradle Groovy DSL
-implementation 'com.limitra.sdk:database_2.13:0.0.11'
+implementation 'com.limitra.sdk:database_2.13:0.0.12'
 ````
 
 Gradle Kotlin DSL
 ````Gradle Kotlin DSL
-compile("com.limitra.sdk:database_2.13:0.0.11")
+compile("com.limitra.sdk:database_2.13:0.0.12")
 ````
 
 Scala SBT
 ````Scala SBT
-libraryDependencies += "com.limitra.sdk" %% "database_2.13" % "0.0.11"
+libraryDependencies += "com.limitra.sdk" %% "database_2.13" % "0.0.12"
 ````
 
 Apache Ivy
 ````Apache Ivy
-<dependency org="com.limitra.sdk" name="database_2.13" rev="0.0.11" />
+<dependency org="com.limitra.sdk" name="database_2.13" rev="0.0.12" />
 ````
 
 Groovy Grape
 ````Groovy Grape
 @Grapes(
-  @Grab(group='com.limitra.sdk', module='database_2.13', version='0.0.11')
+  @Grab(group='com.limitra.sdk', module='database_2.13', version='0.0.12')
 )
 ````
 
 Leiningen
 ````Leiningen
-[com.limitra.sdk/database_2.13 "0.0.11"]
+[com.limitra.sdk/database_2.13 "0.0.12"]
 ````
 
 Apache Buildr
 ````Apache Buildr
-'com.limitra.sdk:database_2.13:jar:0.0.11'
+'com.limitra.sdk:database_2.13:jar:0.0.12'
 ````
 
 PURL
 ````PURL
-pkg:maven/com.limitra.sdk/database_2.13@0.0.11
+pkg:maven/com.limitra.sdk/database_2.13@0.0.12
 ````
 
 Bazel
 ````Bazel
 maven_jar(
     name = "database_2.13",
-    artifact = "com.limitra.sdk:database_2.13:0.0.11",
+    artifact = "com.limitra.sdk:database_2.13:0.0.12",
     sha1 = "098164177330abbd7e3a7529c774dc40593f2b0f",
 )
 ````
