@@ -84,6 +84,18 @@ protected abstract class DbTableQueryExtender[E <: BaseBox, T <: BaseBoxTable[E]
     this._update(entity).saveAsync
   }
 
+  // Runs customized & handled update action sync
+  def updateHandle(entity: E): Long = {
+    def action = this._update(entity).save
+    try { action } catch { case _ => action }
+  }
+
+  // Runs customized & handled update action async
+  def updateHandleAsync(entity: E) = {
+    def action = this._update(entity).saveAsync
+    action.recoverWith({ _ => action })
+  }
+
   // Generates customized query action for delete by id operation
   private def _delete(id: Long) = {
     this.query.filter(_.ID === id).delete
